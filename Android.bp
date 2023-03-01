@@ -25,6 +25,7 @@ rust_library {
     ],
     apex_available: [
         "//apex_available:platform",
+        "com.android.btservices",
         "com.android.compos",
         "com.android.uwb",
         "com.android.virt",
@@ -93,6 +94,7 @@ rust_bindgen {
     vendor_available: true,
     apex_available: [
         "//apex_available:platform",
+        "com.android.btservices",
         "com.android.compos",
         "com.android.uwb",
         "com.android.virt",
@@ -118,6 +120,7 @@ rust_bindgen {
     vendor_available: true,
     apex_available: [
         "//apex_available:platform",
+        "com.android.btservices",
         "com.android.compos",
         "com.android.uwb",
         "com.android.virt",
