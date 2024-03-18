@@ -27,6 +27,9 @@ use std::{
 use system_properties_bindgen::prop_info as PropInfo;
 use thiserror::Error;
 
+#[doc(hidden)]
+pub mod parsers_formatters;
+
 /// Errors this crate can generate
 #[derive(Error, Debug)]
 pub enum PropertyWatcherError {
@@ -289,7 +292,7 @@ fn remaining_time_until(until: Option<Instant>) -> Option<timespec> {
 fn duration_to_timespec(duration: Duration) -> timespec {
     timespec {
         tv_sec: duration.as_secs().try_into().unwrap(),
-        tv_nsec: duration.subsec_nanos().try_into().unwrap(),
+        tv_nsec: duration.subsec_nanos() as _,
     }
 }
 
