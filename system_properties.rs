@@ -248,6 +248,17 @@ impl PropertyWatcher {
 
         Ok(())
     }
+
+    /// Waits until the property exists and has the given value.
+    pub fn wait_for_value_notimeout(&mut self, expected_value: &str) -> Result<()> {
+        self.wait_for_property_creation_until(None)?;
+
+        while self.read(|_, value| Ok(value != expected_value))? {
+            self.wait(None)?;
+        }
+
+        Ok(())
+    }
 }
 
 /// Reads a system property.
