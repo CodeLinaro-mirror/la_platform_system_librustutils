@@ -15,10 +15,11 @@
 #![allow(missing_docs)]
 #![allow(unused_must_use)]
 #![no_main]
+#![cfg(target_os = "android")]
 
 use libfuzzer_sys::arbitrary::Arbitrary;
 use libfuzzer_sys::fuzz_target;
-use rustutils::system_properties;
+use rustutils::android::system_properties;
 use std::cell::RefCell;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
@@ -76,19 +77,10 @@ impl fmt::Display for WritableProperty {
 
 #[derive(Arbitrary, Debug)]
 enum Command {
-    Read {
-        prop: Property,
-    },
-    Write {
-        prop: WritableProperty,
-        value: String,
-    },
-    WatcherRead {
-        prop: Property,
-    },
-    WatcherWait {
-        value: u8,
-    },
+    Read { prop: Property },
+    Write { prop: WritableProperty, value: String },
+    WatcherRead { prop: Property },
+    WatcherWait { value: u8 },
 }
 
 fuzz_target!(|commands: Vec<Command>| {
